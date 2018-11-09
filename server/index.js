@@ -7,10 +7,14 @@ const PORT = process.env.PORT || 7000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.static(path.join(__dirname, '../client/dist/')));
+app.use(express.static(path.join(__dirname, '../client/dist/')));
 
-app.get('/', (req, res) => {
-  res.send('hello');
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/dist/'), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 app.listen(PORT, () => {

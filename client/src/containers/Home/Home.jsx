@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
+export default class Home extends Component {
   constructor() {
     super();
     this.state = {};
   }
 
   render() {
-    return <div>I am in my react App</div>;
+    return <div>Home</div>;
   }
 }
