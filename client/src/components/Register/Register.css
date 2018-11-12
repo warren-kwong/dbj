@@ -1,21 +1,21 @@
-.login-page-layout {
+.register-page-layout {
   display: flex;
   justify-content: center;
   margin-top: 15vh;
 }
 
-.login {
+.register {
   width: 250px;
   display: flex;
   flex-direction: column;
   padding: 10px 25px;
 }
 
-.login__items {
+.register__items {
   margin: 5px 0;
 }
 
-.login-btns-row {
+.register-btns-row {
   display: flex;
   justify-content: space-around;
 }

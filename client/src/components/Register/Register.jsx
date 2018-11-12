@@ -6,28 +6,33 @@ import Card from '@material-ui/core/Card';
 import InputBase from '@material-ui/core/InputBase';
 import Typography from '@material-ui/core/Typography';
 
-import './Login.css';
+import './Register.css';
 
-export default class Login extends Component {
+export default class Register extends Component {
   render() {
     return (
-      <div className="login-page-layout">
-        <Card className="login">
+      <div className="register-page-layout">
+        <Card className="register">
           <Typography variant="h6" align="center">
-            Login
+            Register
           </Typography>
-          <InputBase placeholder="Username" className="login__items" />
+          <InputBase placeholder="Username" className="register__items" />
           <InputBase
             placeholder="Password"
             type="password"
-            className="login__items"
+            className="register__items"
           />
-          <div className="login__items login-btns-row">
+          <InputBase
+            placeholder="Re-typePassword"
+            type="password"
+            className="register__items"
+          />
+          <div className="register__items register-btns-row">
             <Button variant="contained" color="primary">
-              Login
-            </Button>
-            <Button component={Link} to="/register" color="primary">
               Register
+            </Button>
+            <Button component={Link} to="/login" color="primary">
+              Cancel
             </Button>
           </div>
         </Card>
