@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoConnectString = '';
+const mongoConnectString = 'mongodb://localhost/dbj';
 const options = {
   useNewUrlParser: true
 };
@@ -18,3 +18,7 @@ mongoose
       console.log(`ERROR ${err} connecting to: ${mongoConnectString}`);
     }
   );
+
+mongodb = mongoose.connection;
+
+module.exports.mongodb = mongodb;
