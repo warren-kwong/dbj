@@ -15,18 +15,19 @@ export default class Register extends Component {
     this.state = {
       username: '',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      showPasswordAlert: false,
+      showerUsernameAlert: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.register = this.register.bind(this);
   }
 
-  async handleInputChange(e) {
+  handleInputChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
-    console.log(`state.${name}: ${this.state[name]}`);
-    await this.setState({ [name]: value });
+    this.setState({ [name]: value });
   }
 
   async register(e) {
@@ -45,8 +46,12 @@ export default class Register extends Component {
           'http://localhost:7000/api/auth/register',
           payload
         );
-        console.log('axios post');
-        console.log('user registered');
+        if (data.data == 'username already exists.') {
+          console.log('Username already exists');
+          // *insert indicator
+        } else {
+          console.log('user registered');
+        }
       } catch (err) {
         console.log('catch', err);
         throw new Error(err);

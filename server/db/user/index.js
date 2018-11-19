@@ -1,9 +1,12 @@
 const User = require('./userSchema');
+const bcrypt = require('bcrypt');
 
 const createNewUser = async (username, password) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
   try {
-    let data = User.create({ username, password });
-    console.log(`created user ${username}`);
+    const data = await User.create({ username, password: hash });
+    console.log(`successfully created user: ${username}`);
     return data;
   } catch (err) {
     console.log('error', err);
@@ -11,8 +14,18 @@ const createNewUser = async (username, password) => {
   }
 };
 
-const selectUser = () => {};
-const verifyUser = () => {};
+const selectUser = async username => {
+  try {
+    return await User.find({ username });
+  } catch (err) {
+    console.log('error, err');
+    return err;
+  }
+};
+
+const verifyUser = async (password, hash) => {
+  return bcrypt.compareSync(password, hash);
+};
 
 module.exports = {
   createNewUser,
