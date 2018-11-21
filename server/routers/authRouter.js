@@ -1,9 +1,41 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
-const { createNewUser, selectUser, verifyUser } = require('../db/user');
+require('../middleware/passport.js');
 
-router.post('/login', function() {});
+const passport = require('passport');
+
+const { createNewUser, selectUser } = require('../db/userModel');
+
+router.post('/login', async function(req, res, next) {
+  passport.authenticate(
+    'local',
+    { session: false, failureRedirect: '/login' },
+    function(err, user, info) {
+      console.log(err, user, info);
+      if (err || !user) {
+        return res.status(400).send(err || info);
+      }
+      return res.status(200).send(user._id);
+
+      // if (err) return res.status(400).json({ err });
+      // if (!user) return res.status(400).send({ info });
+
+      // req.login(user, { session: false }, err => {
+      //   if (err) return res.status(400).send(err);
+
+      //   const token = jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, {
+      //     expiresIn: '1d'
+      //   });
+
+      //   res.cookie('jwt', token, { httpOnly: true, secure: true });
+      //   res.status(200).send();
+      // });
+    }
+  )(req, res, next);
+});
+
 router.post('/logout', function() {});
 
 router.post('/register', async function(req, res) {

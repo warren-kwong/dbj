@@ -2,7 +2,7 @@ const User = require('./userSchema');
 const bcrypt = require('bcrypt');
 
 const createNewUser = async (username, password) => {
-  const salt = bcrypt.genSaltSync(10);
+  const salt = bcrypt.genSaltSync(process.env.SALT_ROUNDS);
   const hash = bcrypt.hashSync(password, salt);
   try {
     const data = await User.create({ username, password: hash });
@@ -23,7 +23,7 @@ const selectUser = async username => {
   }
 };
 
-const verifyUser = async (password, hash) => {
+const verifyUser = (password, hash) => {
   return bcrypt.compareSync(password, hash);
 };
 

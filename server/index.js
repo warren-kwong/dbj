@@ -1,14 +1,21 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const router = require('./routers/');
+const passport = require('passport');
 
 const app = express();
 const PORT = process.env.PORT || 7000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, '../client/dist/')));
+
+app.use('/api', router);
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/'), function(err) {
@@ -17,8 +24,6 @@ app.get('/*', function(req, res) {
     }
   });
 });
-
-app.use('/api', router);
 
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);

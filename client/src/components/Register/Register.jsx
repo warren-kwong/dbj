@@ -33,7 +33,7 @@ export default class Register extends Component {
   async register(e) {
     e.preventDefault();
     const { username, password, passwordConfirm } = this.state;
-    const payload = {
+    const body = {
       username,
       password
     };
@@ -44,7 +44,7 @@ export default class Register extends Component {
       try {
         const data = await axios.post(
           'http://localhost:7000/api/auth/register',
-          payload
+          body
         );
         if (data.data == 'username already exists.') {
           console.log('Username already exists');
