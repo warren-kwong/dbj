@@ -38,6 +38,9 @@ export default class Login extends Component {
         body
       );
       console.log('axios post to login', data);
+      document.cookie = `token=${JSON.parse(data.headers.auth).token}`;
+      console.log(document.cookie);
+      this.props.history.push('/home');
     } catch (err) {
       console.log('incorrect credentials');
       throw new Error(err);

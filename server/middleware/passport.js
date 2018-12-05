@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
 const { selectUser, verifyUser } = require('../db/userModel');
 
 passport.use(
@@ -32,3 +33,21 @@ passport.use(
     }
   )
 );
+
+let authenticate = (req, res, next) => {
+  if (req.url === '/login' || req.url === '/register') {
+    next();
+  } else {
+    console.log(req.cookies);
+    jwt.verify(req.cookies.token, process.env.TOKEN_SECRET, (err, token) => {
+      if (err) {
+        console.log('in an error');
+        res.status(500).send();
+      } else {
+        next();
+      }
+    });
+  }
+};
+
+module.exports.authenticate = authenticate;
