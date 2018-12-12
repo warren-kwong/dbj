@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { selectUser, verifyUser } = require('../db/userModel');
 
 passport.use(
+  'local-login',
   new LocalStrategy(
     {
       usernameField: 'username',
@@ -38,10 +39,9 @@ let authenticate = (req, res, next) => {
   if (req.url === '/login' || req.url === '/register') {
     next();
   } else {
-    console.log(req.cookies);
     jwt.verify(req.cookies.token, process.env.TOKEN_SECRET, (err, token) => {
       if (err) {
-        console.log('in an error');
+        console.log('Redirect');
         res.status(500).send();
       } else {
         next();

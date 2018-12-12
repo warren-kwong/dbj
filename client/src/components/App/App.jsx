@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Landing from '../Landing/Landing.jsx';
 import Login from '../Login/Login.jsx';
-import Home from '../Home/Home.jsx';
+import Dashboard from '../Dashboard/Dashboard.jsx';
 import Register from '../Register/Register.jsx';
 
 export default class App extends Component {
@@ -18,10 +18,11 @@ export default class App extends Component {
       <div>
         <CssBaseline />
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/home" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Redirect from="*" to="/" />
         </Switch>
       </div>
     );

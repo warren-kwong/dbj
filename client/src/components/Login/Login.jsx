@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import './Login.css';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -37,10 +37,9 @@ export default class Login extends Component {
         'http://localhost:7000/api/auth/login',
         body
       );
-      console.log('axios post to login', data);
+      localStorage.setItem('userId', data.data._id);
       document.cookie = `token=${JSON.parse(data.headers.auth).token}`;
-      console.log(document.cookie);
-      this.props.history.push('/home');
+      this.props.history.push('/dashboard');
     } catch (err) {
       console.log('incorrect credentials');
       throw new Error(err);
@@ -86,3 +85,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default withRouter(Login);

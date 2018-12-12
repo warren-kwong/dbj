@@ -10,7 +10,7 @@ const { createNewUser, selectUser } = require('../db/userModel');
 
 router.post('/login', async function(req, res, next) {
   passport.authenticate(
-    'local',
+    'local-login',
     { session: false, failureRedirect: '/login' },
     function(err, user, info) {
       console.log(info);
@@ -25,7 +25,7 @@ router.post('/login', async function(req, res, next) {
       req.login(user, { session: false }, err => {
         if (err) return res.status(400).send(err);
 
-        const token = jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, {
+        let token = jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, {
           expiresIn: '1d'
         });
 

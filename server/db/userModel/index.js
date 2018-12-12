@@ -16,7 +16,7 @@ const createNewUser = async (username, password) => {
 
 const selectUser = async username => {
   try {
-    return await User.find({ username });
+    return await User.find({ username }).exec();
   } catch (err) {
     console.log('error, err');
     return err;
