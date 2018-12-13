@@ -93,9 +93,7 @@ export default class Register extends Component {
             <Button variant="contained" color="primary" onClick={this.register}>
               Register
             </Button>
-            <Button component={Link} to="/login" color="primary">
-              Cancel
-            </Button>
+            <Button onClick={() => this.props.isNewUser(false)}>Cancel</Button>
           </div>
         </Card>
       </div>

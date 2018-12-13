@@ -76,9 +76,7 @@ class Login extends Component {
             >
               Login
             </Button>
-            <Button component={Link} to="/register" color="primary">
-              Register
-            </Button>
+            <Button onClick={() => this.props.isNewUser(true)}>Register</Button>
           </div>
         </Card>
       </div>

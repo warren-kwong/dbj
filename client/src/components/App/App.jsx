@@ -19,8 +19,6 @@ export default class App extends Component {
         <CssBaseline />
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
           <Route path="/dashboard" component={Dashboard} />
           <Redirect from="*" to="/" />
         </Switch>
